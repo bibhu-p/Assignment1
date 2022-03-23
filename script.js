@@ -125,9 +125,7 @@ function updateData(){
     
 
     oldData.splice(index,1,newData);
-
     window.localStorage.setItem('user', JSON.stringify(oldData));
-
     showData();
 }
 
