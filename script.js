@@ -24,11 +24,20 @@ getapi();
 
 function showData(){
     var userData = JSON.parse(window.localStorage.getItem('user'));
+
+    function nameSplitter(name){
+        let arr = name.split(" ");
+       return(arr[0].charAt(0)+""+arr[1].charAt(0));
+        
+    }
     
     const tableData = userData.map((usr, i) => (
         `
             <tr>
             <td id ="usr-id">${usr.id}</td>
+            <td>
+            <div class="d-flex justify-content-center align-items-center rounded-circle bg-dark badge" style="height:50px; width:50px; cursor:pointer;" onclick="postData(${i})">${nameSplitter(usr.name)}</div>
+            </td>
             <td>${usr.username}</td>
             <td>${usr.name}</td>
             <td>${usr.email}</td>
@@ -44,13 +53,12 @@ function showData(){
             </tr>
         `
         )).join('');
-        
+
         var tbody = document.getElementById('t-body');
         tbody.innerHTML = tableData;
 }
 
 function onAdd(){
-    const form = document.getElementById('my_form');
     var inName = document.getElementById('name').value;
     var inUserName = document.getElementById('username').value;
     var inEmail = document.getElementById('email').value;
@@ -131,7 +139,12 @@ function updateData(){
 
 function deleteData(i){
     var oldData = JSON.parse(window.localStorage.getItem('user'));
-    var newData = oldData.splice(i,1); 
+    oldData.splice(i,1); 
     window.localStorage.setItem('user', JSON.stringify(oldData));
     showData();
+}
+
+function postData(i){
+    window.localStorage.setItem('userIndex',i);
+    window.location.href="posts.html"; 
 }
