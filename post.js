@@ -1,4 +1,10 @@
 
+const getCards=(userPosts, userId)=>{
+
+    var posts = userPosts.filter((data) =>  data.id === userId);
+    return posts;
+}
+
 const showData=(userId)=>{
     var postDetails= JSON.parse(window.localStorage.getItem('userPostData'));
     var userPost = getCards(postDetails, userId);
@@ -15,9 +21,14 @@ const showData=(userId)=>{
             <div class="card-body">
             <p class="card-text">${usr.title}</p>
             </div>
-            <button type="button" class="btn btn-primary" onclick="deletePost(${usr.albumId},${usr.id})">
+            <div class="d-flex flex-row mb-5 justify-content-evenly">
+            <button type="button" class="btn btn-primary"  onclick="viewPost(${usr.albumId})">
+                   View
+            </button>
+            <button type="button" class="btn btn-primary"  onclick="deletePost(${usr.albumId},${usr.id})">
                     Delete
             </button>
+            </div>
       </div>
         `
         )).join('');
@@ -68,7 +79,6 @@ const getApi=async (userId)=>{
     
 }
 
-
 const getIndex=()=>{
     var userIndex = window.localStorage.getItem('userIndex');
 
@@ -94,7 +104,6 @@ const getIndex=()=>{
 }
 getIndex();
  
-
 const addPost=()=>{
     var userIndex = window.localStorage.getItem('userIndex');
     var userData = JSON.parse(window.localStorage.getItem('user'));
@@ -138,9 +147,7 @@ const deletePost=(i,id)=>{
     showData(id);
 }
 
-function getCards(userPosts, userId){
-
-     var posts = userPosts.filter((data) =>  data.id === userId);
-     return posts;
+const viewPost=(i)=>{
+    window.localStorage.setItem('postData',i);
+    window.location.href="comments.html"; 
 }
-
