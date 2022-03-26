@@ -14,18 +14,18 @@ const showData=(userId)=>{
     var postBody = document.getElementById('post-cards');
     postBody.innerHTML ='' ;
 
-    const postCard = userPost.map(usr => (
+    const postCard = userPost.map((post, i) => (
         `
         <div class="card mt-5 ms-2" style="width: 18rem;">
-            <img src=${usr.url} class="card-img-top">
+            <img src=${post.url} class="card-img-top">
             <div class="card-body">
-            <p class="card-text">${usr.title}</p>
+            <p class="card-text">${post.title}</p>
             </div>
             <div class="d-flex flex-row mb-5 justify-content-evenly">
-            <button type="button" class="btn btn-primary"  onclick="viewPost(${usr.albumId})">
+            <button type="button" class="btn btn-primary"  onclick="viewPost(${post.albumId},${post.id})">
                    View
             </button>
-            <button type="button" class="btn btn-primary"  onclick="deletePost(${usr.albumId},${usr.id})">
+            <button type="button" class="btn btn-primary"  onclick="deletePost(${post.albumId},${post.id})">
                     Delete
             </button>
             </div>
@@ -134,20 +134,20 @@ const addPost=()=>{
 
 const deletePost=(i,id)=>{
     var postDetails = JSON.parse(window.localStorage.getItem('userPostData'));
-    // console.log(i);
-    // console.log(id);
-     var delPost = postDetails.filter(val=> {return val.id === id});
-    //  console.log(delPost);
+    var delPost = postDetails.filter(val=> {return val.id === id});
     var delContent = delPost.filter(val => {return val.albumId == i});
-    // console.log(delContent);
     postDetails = postDetails.filter( ( el ) => !delContent.includes( el ) );
-    // console.log(postDetails);
 
     window.localStorage.setItem('userPostData', JSON.stringify(postDetails));
     showData(id);
 }
 
-const viewPost=(i)=>{
-    window.localStorage.setItem('postData',i);
+const viewPost=(albumId, postId)=>{
+    console.log('post data->>>>', albumId, postId)
+    const postInfo= {
+        albumId: albumId,
+        postId:postId
+    }
+    window.localStorage.setItem('postInfo', JSON.stringify(postInfo));
     window.location.href="comments.html"; 
 }
