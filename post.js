@@ -23,10 +23,10 @@ const showData=(userId)=>{
             </div>
             <div class="d-flex flex-row mb-5 justify-content-evenly">
             <button type="button" class="btn btn-primary"  onclick="viewPost(${post.albumId},${post.id})">
-                   View
+            <i class="bi bi-chat-dots"></i>
             </button>
             <button type="button" class="btn btn-primary"  onclick="deletePost(${post.albumId},${post.id})">
-                    Delete
+            <i class="bi bi-trash3"></i>
             </button>
             </div>
       </div>
